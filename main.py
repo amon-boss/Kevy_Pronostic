@@ -3,6 +3,7 @@ import time
 import threading
 from datetime import datetime
 from telebot import TeleBot
+from keep_alive import keep_alive  # Import du serveur Flask
 
 BOT_TOKEN = os.environ['BOT_TOKEN']
 CHANNEL_ID = int(os.environ['CHANNEL_ID'])
@@ -77,6 +78,7 @@ def create_poll(message):
             bot.send_message(CHANNEL_ID, f"⚠️ Erreur création sondage : {e}")
 
 if __name__ == "__main__":
+    keep_alive()  # Lance le serveur web Flask pour Render
     threading.Thread(target=scheduled_messages, daemon=True).start()
     print("🤖 Bot paris sportifs fun et motivant actif ✅")
     bot.infinity_polling()
